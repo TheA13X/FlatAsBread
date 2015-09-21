@@ -1,0 +1,7 @@
+name: FlatAsBread
+version: 0
+authors: [Sakul6499, SAMUWITZ, A13XIS]
+main: saul.FABMain
+commands:
+  gs:
+      usage: du hast nicht keine Rechte /build zu nutzen!

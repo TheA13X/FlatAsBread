@@ -1,0 +1,18 @@
+			} else if (args[0].equalsIgnoreCase("claim")) {
+				if (!(sender instanceof Player)) {
+					sender.sendMessage(ChatColor.RED + "keine UniqueId gefunden. Bist du ein Spieler?");
+					return;
+				}
+				if (FABMain.gs_owner.values().contains(((Player) sender).getUniqueId().toString())) {
+					sender.sendMessage(ChatColor.RED + "Du besitzt schon ein Grundstück!");
+				} else {
+					int id = index(null,FABMain.gs_owner)+1;
+					FABMain.gs_owner.put(id,((Player) sender).getUniqueId().toString());
+					MySQLMethod.update("UPDATE flatsector SET owner = \""+((Player) sender).getUniqueId().toString()+"\" WHERE id="+id+";");
+					try {
+						new MessageQueue().addText("Dir wurde ein Grundstück zugewiesen! ").setColor(ChatColor.DARK_PURPLE).addText("teleport").setColor(ChatColor.GOLD).setSuggestOnClickEvent("/gs goto").setShowTextOnHoverEvent("goto").addText(" ").addText("benenne es um").setColor(ChatColor.GOLD).setSuggestOnClickEvent("/gs setname " + sender.getName() + "s-Grundstück").setShowTextOnHoverEvent("mit diesem Namen wird man sich später einfach hinporten können!")
+								.sendToChat((Player) sender);
+					} catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException | InstantiationException ex) {
+						Logger.getLogger(BuildCommand.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}
